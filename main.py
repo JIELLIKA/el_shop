@@ -2,7 +2,7 @@ class Item:
     """Создаем класс для товара"""
     discount = 0.80
 
-    def __init__(self, name, price, quantity):
+    def __init__(self, name: str, price: int, quantity: int):
         """Инициализация каждого экземпляра"""
         self.name = name
         self.price = price
