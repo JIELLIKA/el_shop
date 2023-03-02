@@ -1,17 +1,19 @@
+import pytest
 from main import Item
 
-def test_item_init():
-    item1 = Item('Телевизор', 50000, 2)
-    assert item1.name == 'Телевизор'
-    assert item1.price == 50000
-    assert item1.quantity == 2
+@pytest.fixture
+def rnd_item():
+    return Item('Телевизор', 50000, 2)
 
-def test_item_calculate_total_price():
-    item1 = Item('Телевизор', 50000, 2)
-    check_total_price = item1.price * item1.quantity
+def test_item_init(rnd_item):
+    assert rnd_item.name == 'Телевизор'
+    assert rnd_item.price == 50000
+    assert rnd_item.quantity == 2
+
+def test_item_calculate_total_price(rnd_item):
+    check_total_price = rnd_item.price * rnd_item.quantity
     assert check_total_price == 100000
 
-def test_item_apply_discount():
-    item1 = Item('Телевизор', 50000, 2)
-    check_price = item1.price * item1.discount
+def test_item_apply_discount(rnd_item):
+    check_price = rnd_item.price * rnd_item.discount
     assert check_price == 40000
