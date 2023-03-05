@@ -19,7 +19,7 @@ class Item:
     @item_name.setter
     def len_name(self, value: str) -> None:
         if len(value) > 10:
-            print("Exception: Длина наименования товара превышает 10 символов")
+            raise Exception("Длина наименования товара превышает 10 символов")
         else:
             self.__name = value
 
@@ -63,7 +63,7 @@ class Item:
 item1 = Item('Телефон', 10000, 5)
 item1.len_name = 'Смартфон'
 print(item1.len_name)
-item1.len_name = 'Телефон'
+item1.len_name = 'СуперТелефон'
 print(item1.len_name)
 
 list_of_items = Item.instantiate_from_csv()
