@@ -11,6 +11,12 @@ class Item:
         self.price = price
         self.quantity = quantity
 
+    def __repr__(self) -> str:
+        return f'Item("{self.__name}", "{self.price}", "{self.quantity}")'
+
+    def __str__(self) -> str:
+        return f'{self.__name}, {self.price}, {self.quantity}'
+
     @property
     def item_name(self) -> str:
         """Возвращаем текущее название позиции"""
@@ -40,7 +46,6 @@ class Item:
             reader = csv.DictReader(csvfile)
             for pos in reader:
                 all_pos.append((pos['name'] + " " + pos['price'] + " " + pos['quantity']))
-            # print(all_pos)
         return all_pos
 
     @classmethod
@@ -63,13 +68,12 @@ class Item:
 item1 = Item('Телефон', 10000, 5)
 item1.len_name = 'Смартфон'
 print(item1.len_name)
-item1.len_name = 'СуперТелефон'
+item1.len_name = 'Телефон'
 print(item1.len_name)
 
 list_of_items = Item.instantiate_from_csv()
 item1 = Item.new_init(list_of_items[2])
-print(item1.len_name)
 
 print(Item.is_integer(5))
-print(Item.is_integer(5.0))
-print(Item.is_integer(5.5))
+print(str(item1))
+print(repr(item1))
