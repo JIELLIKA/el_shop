@@ -23,7 +23,8 @@ class Item:
         return self.__name
 
     @item_name.setter
-    def len_name(self, value: str) -> None:
+    def item_name(self, value: str) -> None:
+        """Проверяем, чтобы длина наименования товара не превышала 10 символов"""
         if len(value) > 10:
             raise Exception("Длина наименования товара превышает 10 символов")
         else:
@@ -64,16 +65,40 @@ class Item:
         else:
             return False
 
+    def __add__(self, other) -> int:
+        """Складывваем экземпляры классов по количеству товара"""
+        if isinstance(other, Phone) and isinstance(self, Item):
+            return self.quantity + other.quantity
+        else:
+            raise ValueError("Возможно только сложение экземпляров класса Item или Phone")
 
-item1 = Item('Телефон', 10000, 5)
-item1.len_name = 'Смартфон'
-print(item1.len_name)
-item1.len_name = 'Телефон'
-print(item1.len_name)
 
-list_of_items = Item.instantiate_from_csv()
-item1 = Item.new_init(list_of_items[2])
+class Phone(Item):
+    def __init__(self, name: str, price: int, quantity: int, num_sim_card: int):
+        """Инициализациия экземпляров класса Телефон"""
+        super().__init__(name, price, quantity)
+        self.__num_sim_card = num_sim_card
 
-print(Item.is_integer(5))
-print(str(item1))
-print(repr(item1))
+    @property
+    def num_sims(self) -> int:
+        """Возвращаем текущее количество сим-карт"""
+        return self.__num_sim_card
+
+    @num_sims.setter
+    def num_sims(self, value: int) -> None:
+        """Реализуем проверку, что количество сим-карт не может быть меньше или равно 0"""
+        if value <= 0 or type(value) != int:
+            raise ValueError("Количество физических SIM-карт должно быть целым числом больше нуля")
+        else:
+            self.__num_sim_card = value
+
+
+
+
+item = Item("iPhone 14", 120_000, 5)
+phone = Phone("iPhone 14", 120_000, 10, 2)
+print(phone.num_sims)
+print(repr(phone))
+phone.num_sims = 3
+print(phone.num_sims)
+print(item + 10)
