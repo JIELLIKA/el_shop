@@ -73,6 +73,8 @@ class Item:
             raise ValueError("Возможно только сложение экземпляров класса Item или Phone")
 
 
+
+
 class Phone(Item):
     def __init__(self, name: str, price: int, quantity: int, num_sim_card: int):
         """Инициализациия экземпляров класса Телефон"""
@@ -101,4 +103,4 @@ print(phone.num_sims)
 print(repr(phone))
 phone.num_sims = 3
 print(phone.num_sims)
-print(item + 10)
+print(item + phone)
