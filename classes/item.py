@@ -10,6 +10,7 @@ class Item:
         self.__name = name
         self.price = price
         self.quantity = quantity
+        super().__init__()
 
     def __repr__(self) -> str:
         return f'Item("{self.__name}", "{self.price}", "{self.quantity}")'
@@ -65,42 +66,5 @@ class Item:
         else:
             return False
 
-    def __add__(self, other) -> int:
-        """Складывваем экземпляры классов по количеству товара"""
-        if isinstance(other, Phone) and isinstance(self, Item):
-            return self.quantity + other.quantity
-        else:
-            raise ValueError("Возможно только сложение экземпляров класса Item или Phone")
 
 
-
-
-class Phone(Item):
-    def __init__(self, name: str, price: int, quantity: int, num_sim_card: int):
-        """Инициализациия экземпляров класса Телефон"""
-        super().__init__(name, price, quantity)
-        self.__num_sim_card = num_sim_card
-
-    @property
-    def num_sims(self) -> int:
-        """Возвращаем текущее количество сим-карт"""
-        return self.__num_sim_card
-
-    @num_sims.setter
-    def num_sims(self, value: int) -> None:
-        """Реализуем проверку, что количество сим-карт не может быть меньше или равно 0"""
-        if value <= 0 or type(value) != int:
-            raise ValueError("Количество физических SIM-карт должно быть целым числом больше нуля")
-        else:
-            self.__num_sim_card = value
-
-
-
-
-item = Item("iPhone 14", 120_000, 5)
-phone = Phone("iPhone 14", 120_000, 10, 2)
-print(phone.num_sims)
-print(repr(phone))
-phone.num_sims = 3
-print(phone.num_sims)
-print(item + phone)
