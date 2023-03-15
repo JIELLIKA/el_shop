@@ -24,10 +24,12 @@ class KeyBoard(Item, MixingKey):
         super().__init__(name, price, quantity)
 
 
-kb = KeyBoard('Dark Project KD87A', 9600, 5)
-print(kb.item_name)
-print(kb.language)
-kb.change_lang()
-print(kb.language)
-kb.language = 'CH'
-print(kb.language)
+
+# if __name__ == "__main__":
+#     kb = KeyBoard('Dark Project KD87A', 9600, 5)
+#     print(kb.item_name)
+#     print(kb.language)
+#     kb.change_lang()
+#     print(kb.language)
+#     kb.language = 'CH'
+#     print(kb.language)

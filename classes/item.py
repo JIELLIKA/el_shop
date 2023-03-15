@@ -1,4 +1,6 @@
 import csv
+import os
+from classes.InstantiateCSVError import *
 
 
 class Item:
@@ -13,9 +15,11 @@ class Item:
         super().__init__()
 
     def __repr__(self) -> str:
+        """Возвращает информацию о наименовании, количестве и стоимости товара "для разработчика" """
         return f'Item("{self.__name}", "{self.price}", "{self.quantity}")'
 
     def __str__(self) -> str:
+        """Возвращает информацию о наименовании, количестве и стоимости товара "для пользователя" """
         return f'{self.__name}, {self.price}, {self.quantity}'
 
     @property
@@ -43,12 +47,18 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls):
         """Получаем список товара из файла. Преобразуем в формат для последующей инициализации"""
+        if not os.path.isfile('items.csv'):
+            raise FileNotFoundError
         all_pos = []
         with open('items.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for pos in reader:
-                all_pos.append((pos['name'] + " " + pos['price'] + " " + pos['quantity']))
-        return all_pos
+                if pos['name'] == '' or pos['price'] == '' or pos['quantity'] == '':
+                    raise InstantiateCSVError
+                else:
+                    all_pos.append((pos['name'] + " " + pos['price'] + " " + pos['quantity']))
+            return all_pos
+
 
     @classmethod
     def new_init(cls, pos_list: str) -> "Item":
@@ -57,6 +67,7 @@ class Item:
 
     @staticmethod
     def is_integer(num) -> bool:
+        """Возвращает True, если число целое(5.0 - также целое число)"""
         new_type_num = str(num)
         new_num = new_type_num.split('.')
         if len(new_num) == 1:
@@ -67,4 +78,11 @@ class Item:
             return False
 
 
-
+# if __name__ == "__main__":
+#     item = Item('Телевизор', 50000, 2)
+#     try:
+#         print(item.instantiate_from_csv())
+#     except FileNotFoundError as e:
+#         print(e)
+#     except InstantiateCSVError as e:
+#         print(e)
