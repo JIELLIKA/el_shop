@@ -26,10 +26,11 @@ class Phone(Item):
             raise ValueError("Возможно только сложение экземпляров класса Item или Phone")
 
 
-item = Item("iPhone 14", 120_000, 5)
-phone = Phone("iPhone 14", 120_000, 10, 2)
-print(phone.num_sims)
-print(repr(phone))
-phone.num_sims = 3
-print(phone.num_sims)
-print(phone + item)
+# if __name__ == "__main__":
+#     item = Item("iPhone 14", 120_000, 5)
+#     phone = Phone("iPhone 14", 120_000, 10, 2)
+#     print(phone.num_sims)
+#     print(repr(phone))
+#     phone.num_sims = 3
+#     print(phone.num_sims)
+#     print(phone + item)
