@@ -53,10 +53,10 @@ class Item:
         with open('items.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for pos in reader:
-                if pos['name'] == '' or pos['price'] == '' or pos['quantity'] == '':
-                    raise InstantiateCSVError
-                else:
-                    all_pos.append((pos['name'] + " " + pos['price'] + " " + pos['quantity']))
+                for key, values in pos.items():
+                    if key is None or values is None:
+                        raise InstantiateCSVError
+                all_pos.append((pos['name'] + " " + pos['price'] + " " + pos['quantity']))
             return all_pos
 
 
@@ -78,11 +78,11 @@ class Item:
             return False
 
 
-# if __name__ == "__main__":
-#     item = Item('Телевизор', 50000, 2)
-#     try:
-#         print(item.instantiate_from_csv())
-#     except FileNotFoundError as e:
-#         print(e)
-#     except InstantiateCSVError as e:
-#         print(e)
+if __name__ == "__main__":
+    item = Item('Телевизор', 50000, 2)
+    try:
+        print(item.instantiate_from_csv())
+    except FileNotFoundError as e:
+        print(e)
+    except InstantiateCSVError as e:
+        print(e)

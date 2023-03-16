@@ -1,7 +1,7 @@
 class InstantiateCSVError(Exception):
 
     def __init__(self, *args, **kwargs):
-        self.message = args[0] if args else 'Файл поврежден'
+        self.message = args[0] if args else 'Файл item.csv поврежден'
 
     def __str__(self):
         return self.message
@@ -10,7 +10,7 @@ class InstantiateCSVError(Exception):
 class FileNotFoundError(InstantiateCSVError):
 
     def __init__(self, *args, **kwargs):
-        self.message = args[0] if args else 'Файл отсутствует'
+        self.message = args[0] if args else 'Отсутствует файл item.csv'
 
     def __str__(self):
         return self.message
